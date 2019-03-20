@@ -10,15 +10,16 @@ class DeckList extends Component {
     }
     render() {
         const { decks } = this.props
+
         return (
             <div>
                 <NavBar />
-                {decks !== [] &&
+                {decks !== null &&
                     decks.map((deck) => (
                         <DeckCard
                             key={deck.id}
                             title={deck.title}
-                            cardNumber={deck.cards}
+                            cardNumber={deck.cards.length}
                         />
                     ))
                 }
