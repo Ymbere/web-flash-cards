@@ -1,6 +1,7 @@
 import {
     RECEIVE_DECK,
-    ADD_DECK
+    ADD_DECK,
+    ADD_CARD
 } from '../actions/DeckActions'
 
 export default function decks (state=[], action) {
@@ -9,9 +10,21 @@ export default function decks (state=[], action) {
             return action.deck
 
         case ADD_DECK :
-            let newState = state
-            newState = newState.concat(action.deck)
-            return newState
+            return [
+                ...state,
+                action.deck
+            ]
+
+        case ADD_CARD :
+            return state.map((deck) => {
+                if (deck.id === action.card.deck_id) {
+                    return {
+                        ...deck,
+                        cards: [...deck.cards, action.card]
+                    }
+                }
+                return deck
+            })
 
         default :
             return state
