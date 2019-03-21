@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import DeckList from './components/DeckList';
 
-//
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
+
+//Components
 import NewDeck from './components/NewDeck';
-import NavBar from './components/NavBar';
-import { handleInitialData } from './redux/actions/Shared';
+import DeckMainPage from './components/DeckMainPage';
+import Newcard from './components/NewCard';
 
 class App extends Component {
 
@@ -21,6 +22,14 @@ class App extends Component {
           <Route
             exact path={'/create'}
             component={NewDeck}
+          />
+          <Route
+            exact path={'/deck/:id'}
+            component={DeckMainPage}
+          />
+          <Route
+            exact path={'/deck/:id/create_card'}
+            component={Newcard}
           />
         </Switch>
       </Router>
