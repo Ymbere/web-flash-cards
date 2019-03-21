@@ -8,6 +8,7 @@ class DeckList extends Component {
     componentDidMount() {
         this.props.dispatch(handleInitialData())
     }
+
     render() {
         const { decks } = this.props
 
@@ -18,8 +19,7 @@ class DeckList extends Component {
                     decks.map((deck) => (
                         <DeckCard
                             key={deck.id}
-                            title={deck.title}
-                            cardNumber={deck.cards.length}
+                            id={deck.id}
                         />
                     ))
                 }

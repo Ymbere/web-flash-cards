@@ -1,14 +1,30 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { handleAddDeck } from '../redux/actions/DeckActions';
+import { Redirect } from "react-router-dom";
+
+//Components
 import NavBar from './NavBar';
 
 
 class NewDeck extends Component {
     state = {
         title: "",
-        id: Date.now(),
         cards: [],
+        id: 0,
+        redirect: false
+    }
+
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to={`/deck/${this.state.id}/create_card`} />
+        }
     }
 
     handleInput = (e) => {
@@ -24,21 +40,32 @@ class NewDeck extends Component {
         e.preventDefault()
 
         const { dispatch } = this.props
+        const { title, cards } = this.state
+        const id = Date.now()
 
-        dispatch(handleAddDeck(
-            this.state
-        ))
+        this.setState({
+            id: id
+        })
 
-       this.setState(() => ({
-           title: "",
-           id: Date.now()
-       }))
+
+        dispatch(handleAddDeck({
+            title,
+            id,
+            cards
+        }))
+
+        this.setRedirect()
+
+        this.setState({
+            title: ""
+        })
     }
 
 
     render() {
         return (
             <Fragment>
+                {this.renderRedirect()}
                 <NavBar />
                 <form onSubmit={this.handleSubmit}>
                     <h6>Title for the new deck</h6>
