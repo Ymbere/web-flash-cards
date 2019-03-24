@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { handleAddCard } from '../redux/actions/DeckActions';
 import NavBar from './NavBar';
 
-
 class Newcard extends Component {
     state = {
         question: '',
@@ -54,6 +53,5 @@ class Newcard extends Component {
         )
     }
 }
-
 
 export default connect()(Newcard)
