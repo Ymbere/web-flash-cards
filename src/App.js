@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import NewDeck from './components/NewDeck';
 import DeckMainPage from './components/DeckMainPage';
 import Newcard from './components/NewCard';
+import QuizScreen from './components/QuizScreen';
 
 class App extends Component {
 
@@ -30,6 +31,10 @@ class App extends Component {
           <Route
             exact path={'/deck/:id/create_card'}
             component={Newcard}
+          />
+          <Route
+            exact path={'/deck/:id/cards/quiz'}
+            component={QuizScreen}
           />
         </Switch>
       </Router>
