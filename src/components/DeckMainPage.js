@@ -4,8 +4,6 @@ import { withRouter, Link } from "react-router-dom";
 import { handleInitialData } from '../redux/actions/Shared';
 import NavBar from './NavBar';
 
-
-
 class CardMainPage extends Component {
 
     componentDidMount() {
@@ -22,10 +20,12 @@ class CardMainPage extends Component {
                     <p className="card-text">{cardNumber} Cards</p>
 
                     <div className="btn-group">
-                            <button className="btn btn-primary">
-                                <Link to={`/deck/${id}/create_card`}>Add Card</Link>
-                            </button>
-                        <button className="btn btn-primary">Start Quiz</button>
+                        <button className="btn btn-primary">
+                            <Link to={`/deck/${id}/create_card`}>Add Card</Link>
+                        </button>
+                        <button className="btn btn-primary">
+                            <Link to={`/deck/${id}/cards/quiz`}>Start Quiz</Link>
+                        </button>
                     </div>
 
                 </div>
@@ -51,6 +51,5 @@ const mapStateToProps = ({ decks }, ownProps) => {
         }
     }
 }
-
 
 export default withRouter(connect(mapStateToProps)(CardMainPage))
