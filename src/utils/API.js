@@ -1,14 +1,13 @@
+import AsyncStorage from '@callstack/async-storage';
 
-const meuStorage = "meuStorage"
+const meuStorage = "meuStorage:key"
 
-export function retriveDecks() {
-    const stateCheck = JSON.parse(localStorage.getItem(meuStorage))
-
+export async function retriveDecks() {
+    const stateCheck = await AsyncStorage.getItem(meuStorage)
     if (stateCheck === null) {
         localStorage.setItem(meuStorage, JSON.stringify([]))
     }
-
-    const decks = localStorage.getItem(meuStorage)
+    const decks = await AsyncStorage.getItem(meuStorage)
     return JSON.parse(decks)
 }
 
@@ -17,18 +16,18 @@ export function retriveOneDeck(deck_id) {
     return decks.find(deck => deck.id.toString() === deck_id)
 }
 
-export function addDeckToStorage(deck) {
-    const newState = addItem(deck)
+export async function addDeckToStorage(deck) {
+    const newState = await addItem(deck)
     localStorage.setItem(meuStorage, JSON.stringify(newState))
 }
 
-export function addCardToStorage(card) {
-    const newState = addCardToDeck(card)
+export async function addCardToStorage(card) {
+    const newState = await addCardToDeck(card)
     localStorage.setItem(meuStorage, JSON.stringify(newState))
 }
 
-function addCardToDeck(card) {
-    const state = retriveDecks()
+async function addCardToDeck(card) {
+    const state = await retriveDecks()
     return state.map((deck) => {
         if (deck.id === card.deck_id) {
             return {
@@ -40,8 +39,7 @@ function addCardToDeck(card) {
     })
 }
 
-function addItem(item) {
-    const state = retriveDecks()
-    state.push(item)
-    return state
+async function addItem(item) {
+    const result = await retriveDecks()
+    return result.concat(item)
 }
