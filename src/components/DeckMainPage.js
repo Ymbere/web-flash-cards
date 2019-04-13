@@ -10,8 +10,14 @@ class CardMainPage extends Component {
         this.props.dispatch(handleInitialData())
     }
 
-    render() {
-        const { title, cardNumber, id } = this.props
+    componentDidUpdate(prevProps, prevState) {
+        if ( prevProps !== prevState) {
+            this.props.dispatch(handleInitialData())
+        }
+    }
+
+    renderDeckMainPage = ( title, cardNumber, id ) => {
+
         return (
             <div className="card">
                 <NavBar />
@@ -30,6 +36,14 @@ class CardMainPage extends Component {
 
                 </div>
             </div>
+        )
+    }
+
+    render() {
+        const { title, cardNumber, id } = this.props
+
+        return (
+            this.renderDeckMainPage(title, cardNumber, id)
         )
     }
 }
