@@ -3,11 +3,10 @@ import { receive_deck } from "./DeckActions";
 
 export function handleInitialData() {
     return (dispatch) => {
-        const decks = retriveDecks()
-        dispatch(receive_deck(decks))
+        retriveDecks()
+            .then((decks) => dispatch(receive_deck(decks)))
     }
 }
-
 
 export function handleReturnOneDeck(deck_id) {
     return (dispatch) => {
