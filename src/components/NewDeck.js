@@ -6,7 +6,6 @@ import { Redirect } from "react-router-dom";
 //Components
 import NavBar from './NavBar';
 
-
 class NewDeck extends Component {
     state = {
         title: "",
@@ -23,7 +22,7 @@ class NewDeck extends Component {
 
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to={`/deck/${this.state.id}/create_card`} />
+            return <Redirect to={`/deck/${this.state.id}`} />
         }
     }
 
@@ -47,7 +46,6 @@ class NewDeck extends Component {
             id: id
         })
 
-
         dispatch(handleAddDeck({
             title,
             id,
@@ -60,7 +58,6 @@ class NewDeck extends Component {
             title: ""
         })
     }
-
 
     render() {
         return (
