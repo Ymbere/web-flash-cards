@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Components
@@ -10,7 +10,20 @@ class QuizScreen extends Component {
     state = {
         arrayPosition: 0,
         showAnswer: 0,
-        correctAnswers: 0
+        correctAnswers: 0,
+        redirect: false
+    }
+
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    }
+
+    renderRedirect = ( deckID ) => {
+        if (this.state.redirect) {
+            return <Redirect to={`/deck/${deckID}`} />
+        }
     }
 
     componentDidMount() {
@@ -55,17 +68,29 @@ class QuizScreen extends Component {
                     <h1>{arrayPosition + 1}/{cardsNumber}</h1>
 
                     <div className="card">
-                        <h5 className="card-title">{ cards[arrayPosition].question }</h5>
+                        <h5 className="card-title">
+                            { cards[arrayPosition].question }
+                        </h5>
 
                         {showAnswer === 0 &&
-                            <button onClick={this.handleClickAnswer}>Show answer</button>
+                            <button onClick={this.handleClickAnswer}>
+                                Show answer
+                            </button>
                         }
 
                         {showAnswer === 1 &&
                             <Fragment>
                                 <p>{cards[arrayPosition].answer}</p>
-                                <button value="yes" className="btn btn-primary" onClick={this.handleClickOption}>Yes</button>
-                                <button value="no" className="btn btn-primary" onClick={this.handleClickOption}>No</button>
+                                <button
+                                    value="yes"
+                                    className="btn btn-primary"
+                                    onClick={this.handleClickOption}
+                                >Yes</button>
+                                <button
+                                    value="no"
+                                    className="btn btn-primary"
+                                    onClick={this.handleClickOption}
+                                >No</button>
                             </Fragment>
                         }
 
@@ -76,18 +101,39 @@ class QuizScreen extends Component {
     }
 
     render () {
-        const { cardsNumber } = this.props
+        const { cardsNumber, deckID } = this.props
         const { arrayPosition } = this.state
 
         return (
             <div>
+                {this.renderRedirect(deckID)}
                 {arrayPosition !== cardsNumber &&
                     this.renderCard()
                 }
                 {arrayPosition === cardsNumber &&
                     <Fragment>
                         <NavBar />
-                        <h5>Your result is {this.state.correctAnswers} of {cardsNumber}</h5>
+                        <h5>
+                            Your result is
+                            {this.state.correctAnswers} of {cardsNumber}
+                        </h5>
+                        <button
+                            value="back"
+                            className="btn btn-primary"
+                            onClick={() => this.setRedirect()}
+                        >
+                            Go back to deck
+                        </button>
+
+                        <button
+                            value="restart"
+                            className="btn btn-primary"
+                            onClick={() => this.setState(
+                                { arrayPosition: 0, correctAnswers: 0}
+                            )}
+                        >
+                            Restart quiz
+                        </button>
                     </Fragment>
                 }
             </div>
@@ -102,7 +148,8 @@ const mapStateToProps = ({ decks }, ownProps) => {
     if (typeof(deck) !== "undefined") {
         return {
             cards: deck.cards,
-            cardsNumber: deck.cards.length
+            cardsNumber: deck.cards.length,
+            deckID
         }
     } else {
         return {
