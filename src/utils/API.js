@@ -26,6 +26,11 @@ export async function addCardToStorage(card) {
     localStorage.setItem(meuStorage, JSON.stringify(newState))
 }
 
+export async function removeDeckFromStorage(deck) {
+    const newState = await removeDeck(deck.id)
+    AsyncStorage.setItem(meuStorage, JSON.stringify(newState))
+}
+
 async function addCardToDeck(card) {
     const state = await retriveDecks()
     return state.map((deck) => {
@@ -37,6 +42,11 @@ async function addCardToDeck(card) {
         }
         return deck
     })
+}
+
+async function removeDeck(deckID) {
+    const state = await retriveDecks()
+    return state.filter(deck => deck.id !== deckID)
 }
 
 async function addItem(item) {
