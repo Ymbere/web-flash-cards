@@ -3,7 +3,7 @@ import { addDeckToStorage, addCardToStorage } from "../../utils/API";
 export const RECEIVE_DECK = 'RECEIVE_DECK'
 export const ADD_DECK     = 'ADD_DECK'
 export const ADD_CARD     = 'ADD_CARD'
-
+export const REMOVE_DECK  = 'REMOVE_DECK'
 
 export function receive_deck (deck) {
     return {
@@ -19,10 +19,16 @@ export function addCard ( card ) {
     }
 }
 
-
 function addDeck(deck) {
     return {
         type: ADD_DECK,
+        deck
+    }
+}
+
+function removeDeck(deck) {
+    return {
+        type: REMOVE_DECK,
         deck
     }
 }

@@ -1,7 +1,8 @@
 import {
     RECEIVE_DECK,
     ADD_DECK,
-    ADD_CARD
+    ADD_CARD,
+    REMOVE_DECK
 } from '../actions/DeckActions'
 
 export default function decks (state=[], action) {
@@ -14,6 +15,9 @@ export default function decks (state=[], action) {
                 ...state,
                 action.deck
             ]
+
+        case REMOVE_DECK :
+            return state.filter(deck => deck.id !== action.deck.id)
 
         case ADD_CARD :
             return state.map((deck) => {
