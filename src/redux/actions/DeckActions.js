@@ -1,4 +1,4 @@
-import { addDeckToStorage, addCardToStorage } from "../../utils/API";
+import { addDeckToStorage, addCardToStorage, removeDeckFromStorage } from "../../utils/API";
 
 export const RECEIVE_DECK = 'RECEIVE_DECK'
 export const ADD_DECK     = 'ADD_DECK'
@@ -26,10 +26,10 @@ function addDeck(deck) {
     }
 }
 
-function removeDeck(deck) {
+function removeDeck(deckID) {
     return {
         type: REMOVE_DECK,
-        deck
+        deckID
     }
 }
 
@@ -44,5 +44,12 @@ export function handleAddCard (card) {
     return (dispatch) => {
         dispatch(addCard(card))
         addCardToStorage(card)
+    }
+}
+
+export function handleDeleteDeck (deckID) {
+    return(dispatch) => {
+        dispatch(removeDeck(deckID))
+        removeDeckFromStorage(deckID)
     }
 }

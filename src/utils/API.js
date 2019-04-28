@@ -26,8 +26,8 @@ export async function addCardToStorage(card) {
     localStorage.setItem(meuStorage, JSON.stringify(newState))
 }
 
-export async function removeDeckFromStorage(deck) {
-    const newState = await removeDeck(deck.id)
+export async function removeDeckFromStorage(deckID) {
+    const newState = await removeDeck(deckID)
     AsyncStorage.setItem(meuStorage, JSON.stringify(newState))
 }
 

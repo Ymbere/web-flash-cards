@@ -17,7 +17,7 @@ export default function decks (state=[], action) {
             ]
 
         case REMOVE_DECK :
-            return state.filter(deck => deck.id !== action.deck.id)
+            return state.filter(deck => deck.id !== action.deckID)
 
         case ADD_CARD :
             return state.map((deck) => {
