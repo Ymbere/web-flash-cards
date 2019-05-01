@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { handleInitialData } from '../redux/actions/Shared';
 import NavBar from './NavBar';
+import { handleDeleteDeck } from '../redux/actions/DeckActions';
 
 class CardMainPage extends Component {
 
@@ -14,6 +15,15 @@ class CardMainPage extends Component {
         if ( prevProps !== prevState) {
             this.props.dispatch(handleInitialData())
         }
+    }
+
+    handleDeleteDeck = (event) => {
+        event.preventDefault()
+
+        const { dispatch } = this.props
+        const deckID = this.props.id
+
+        dispatch(handleDeleteDeck(deckID))
     }
 
     renderDeckMainPage = ( title, cardNumber, id ) => {
@@ -31,6 +41,9 @@ class CardMainPage extends Component {
                         </button>
                         <button className="btn btn-primary">
                             <Link to={`/deck/${id}/cards/quiz`}>Start Quiz</Link>
+                        </button>
+                        <button className="btn btn-primary" onClick={this.handleDeleteDeck}>
+                            Delete the deck
                         </button>
                     </div>
 
