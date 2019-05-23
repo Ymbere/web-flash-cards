@@ -4,8 +4,14 @@ import { withRouter, Link } from "react-router-dom";
 import { handleInitialData } from '../redux/actions/Shared';
 import NavBar from './NavBar';
 import { handleDeleteDeck } from '../redux/actions/DeckActions';
+import { Redirect } from "react-router-dom";
+import { removeDeckFromStorage } from '../utils/API';
 
 class CardMainPage extends Component {
+
+    state = {
+        redirect: false
+    }
 
     componentDidMount() {
         this.props.dispatch(handleInitialData())
@@ -17,6 +23,12 @@ class CardMainPage extends Component {
         }
     }
 
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/' />
+        }
+    }
+
     handleDeleteDeck = (event) => {
         event.preventDefault()
 
@@ -24,12 +36,18 @@ class CardMainPage extends Component {
         const deckID = this.props.id
 
         dispatch(handleDeleteDeck(deckID))
+
+        removeDeckFromStorage(deckID)
+            .then(() => this.setState({
+                redirect: true
+            }))
     }
 
     renderDeckMainPage = ( title, cardNumber, id ) => {
 
         return (
             <div className="card">
+                {this.renderRedirect()}
                 <NavBar />
                 <div className="card-body">
                     <h5 className="card-title">{title}</h5>

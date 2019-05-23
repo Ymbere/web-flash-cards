@@ -19,13 +19,11 @@ class DeckCard extends Component {
     }
 }
 
-
 const mapStateToProps = ({ decks }, { id }) => {
     const deck = decks.find(c => c.id === id)
     return {
         deck
     }
 }
-
 
 export default connect(mapStateToProps)(DeckCard)
