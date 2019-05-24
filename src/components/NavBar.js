@@ -6,7 +6,7 @@ class NavBar extends Component {
         return (
             <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                    <Link to='/' className="nav-item nav-link active" arial-selected="true">Cards List</Link>
+                    <Link to='/' className="nav-item nav-link active" arial-selected="true">Deck List</Link>
                     <Link to='/create' className="nav-item nav-link active" arial-selected="false">Create Deck</Link>
                 </div>
             </nav>
