@@ -63,6 +63,13 @@ class Newcard extends Component {
         })
     }
 
+    checkFields = () => {
+        const { question, answer } = this.state
+        if ( question === "" || answer === "") {
+            return 1
+        }
+    }
+
     render() {
         return (
             <Fragment>
@@ -80,7 +87,7 @@ class Newcard extends Component {
                         value={this.state.answer}
                     />
                     <br/>
-                    <button>Submit</button>
+                    <button disabled={this.checkFields()}>Submit</button>
                 </form>
             </Fragment>
         )

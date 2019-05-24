@@ -73,7 +73,7 @@ class NewDeck extends Component {
                         onChange={this.handleInput}
                     ></input>
 
-                    <button>Submit</button>
+                    <button disabled={this.state.title === ""}>Submit</button>
                 </form>
             </Fragment>
         )
